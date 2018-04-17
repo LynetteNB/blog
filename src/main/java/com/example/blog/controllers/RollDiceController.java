@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.thymeleaf.util.NumberUtils.sequence;
+
 @Controller
 public class RollDiceController {
     @GetMapping("/roll-dice")
-    public String rollDice() {
+    public String rollDice(Model model) {
+        Integer[] diceSides = sequence(1, 6);
+        model.addAttribute("diceSides", diceSides);
         return "roll-dice";
     }
 
@@ -22,7 +26,7 @@ public class RollDiceController {
         String message = "You guessed " + n + ". The " + diceRolls + " dice rolls were: ";
         int count = 0;
         for(int num : rand) {
-            message += "(" + num + ")";
+            message += "[" + num + "]";
             if(n == num) {
                 count += 1;
             }
