@@ -1,10 +1,7 @@
 package com.example.blog.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PostController {
@@ -29,7 +26,7 @@ public class PostController {
 
     @PostMapping("/posts/create")
     @ResponseBody
-    public String createPost(){
-        return "created a new post";
+    public String createPost(@RequestParam String name){
+        return "created a new post" + name;
     }
 }
