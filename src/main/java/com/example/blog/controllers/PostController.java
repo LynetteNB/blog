@@ -1,6 +1,6 @@
 package com.example.blog.controllers;
 
-import com.example.blog.Post;
+import com.example.blog.models.Post;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
