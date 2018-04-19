@@ -8,6 +8,12 @@
 <h1 th:text="${post.title}"></h1>
 <h2 th:text="${post.body}"></h2>
 
+<a th:href="@{/posts/{id}/edit(id=${post.id})}">Edit</a>
+<form action="/posts/delete" method="post">
+    <input type="hidden" name="id" th:value="${post.id}"/>
+    <button>Delete</button>
+</form>
+
 <div th:replace="partials/footer :: footer"></div>
 </body>
 </html>

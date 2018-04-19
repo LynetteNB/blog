@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -52,7 +51,13 @@ public class PostController {
 
     @PostMapping("/posts/edit")
     public String editPost(@ModelAttribute Post post){
-        System.out.println(post.getId());
+        postService.save(post);
+        return "redirect:/posts";
+    }
+
+    @PostMapping("/posts/delete")
+    public String deletePost(@RequestParam Long id){
+        postService.deleteById(id);
         return "redirect:/posts";
     }
 }

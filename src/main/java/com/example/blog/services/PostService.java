@@ -1,36 +1,31 @@
 package com.example.blog.services;
 
 import com.example.blog.models.Post;
+import com.example.blog.repositories.PostRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class PostService {
-    private List<Post> posts;
+    private final PostRepository postRepo;
 
-    public PostService() {
-        posts = new ArrayList<>();
-        createPosts();
+    public PostService(PostRepository postRepo) {
+        this.postRepo = postRepo;
     }
+
     public Post findOne(long id) {
-        return posts.get((int)id - 1);
+        return postRepo.findById(id);
     }
     public List<Post> findAll() {
-        return posts;
+        return (List) postRepo.findAll();
     }
     public Post save(Post post) {
-        post.setId((long) posts.size() + 1);
-        posts.add(post);
-        return post;
+        return postRepo.save(post);
     }
-    private void createPosts() {
-        save(new Post("title1", "body1"));
-        save(new Post("title2", "body2"));
-        save(new Post("title3", "body3"));
-        save(new Post("title4", "body4"));
-        save(new Post("title5", "body5"));
+    public void deleteById(Long id) {
+        Post post = postRepo.findById(id);
+        postRepo.delete(post);
     }
 
 }
