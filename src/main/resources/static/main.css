@@ -1,3 +1,22 @@
 body {
-    background: white;
+    margin: 0;
+    padding: 0;
+}
+.nav {
+    display: flex;
+    background: darkslategray;
+    height: 3rem;
+    color: white;
+    width: 100%;
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+}
+
+footer {
+    background: darkslategray;
+    height: 3rem;
+    color: white;
+    width: 100%;
 }

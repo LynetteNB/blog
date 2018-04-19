@@ -32,16 +32,27 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    @ResponseBody
-    public String viewCreatePost(){
-
-        return "view the form for creating a post";
+    public String viewCreatePost(Model model){
+        Post post = new Post();
+        model.addAttribute(post);
+        return "posts/create_post";
     }
 
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String createPost(@RequestParam String name){
+    public String createPost(@ModelAttribute Post post){
+        postService.save(post);
+        return "redirect:/posts";
+    }
+    @GetMapping("/posts/{id}/edit")
+    public String viewEditPost(@PathVariable long id, Model model){
+        Post post = postService.findOne(id);
+        model.addAttribute(post);
+        return "posts/edit_post";
+    }
 
-        return "created a new post" + name;
+    @PostMapping("/posts/edit")
+    public String editPost(@ModelAttribute Post post){
+        System.out.println(post.getId());
+        return "redirect:/posts";
     }
 }
