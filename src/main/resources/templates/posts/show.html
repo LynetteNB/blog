@@ -4,16 +4,17 @@
 <body>
 <div th:replace="partials/navbar :: navbar"></div>
 
+<div class="container">
+    <h1 class="text-center" th:text="${post.title}"></h1>
+    <p class="postBody" th:text="${post.body}"></p>
 
-<h1 th:text="${post.title}"></h1>
-<h2 th:text="${post.body}"></h2>
+    <a th:href="@{/posts/{id}/edit(id=${post.id})}"><button class="input input-button">Edit</button></a>
+    <form action="/posts/delete" method="post">
+        <input type="hidden" name="id" th:value="${post.id}"/>
+        <button class="input input-button">Delete</button>
+    </form>
 
-<a th:href="@{/posts/{id}/edit(id=${post.id})}">Edit</a>
-<form action="/posts/delete" method="post">
-    <input type="hidden" name="id" th:value="${post.id}"/>
-    <button>Delete</button>
-</form>
-
+</div>
 <div th:replace="partials/footer :: footer"></div>
 </body>
 </html>

@@ -3,11 +3,13 @@
 <head th:replace="partials/header :: head('Posts')"/>
 <body>
 <div th:replace="partials/navbar :: navbar"></div>
-<h1>Posts</h1>
-<div th:each="post : ${posts}">
-    <h2><a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}"></a></h2>
-    <h3 th:text="${post.body}"></h3>
-    <hr/>
+<div class="container">
+    <h1>Posts</h1>
+    <div th:each="post : ${posts}" class="displayPost">
+        <h2><a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}"></a></h2>
+        <p th:text="${post.body}"></p>
+        <hr/>
+    </div>
 </div>
 
 <div th:replace="partials/footer :: footer"></div>

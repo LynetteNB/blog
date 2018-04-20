@@ -1,6 +1,13 @@
 body {
     margin: 0;
     padding: 0;
+    color: darkslategray;
+}
+a {
+    text-decoration: none;
+}
+p {
+    font-size: 1.25rem;
 }
 .nav {
     display: flex;
@@ -11,10 +18,49 @@ body {
 }
 .nav a {
     color: white;
-    text-decoration: none;
     padding: 1rem;
 }
-
+.container {
+    margin: 1rem auto;
+    width: 80%;
+}
+.text-center {
+    text-align: center;
+}
+.displayPost p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+.postBody {
+    line-height: 1.75rem;
+}
+.input {
+    width: 80%;
+    height: 2rem;
+    font-size: 1.125rem;
+    border-radius: 5px;
+    margin: 1rem auto;
+    padding: 0 .5rem;
+    display: block;
+}
+.input.input-button {
+    background: cadetblue;
+    color: white;
+}
+.input.input-title {
+    border:solid 1px black;
+}
+textarea {
+    display: block;
+    width: 80%;
+    height: 25rem;
+    border-radius: 5px;
+    font-size: 1.125rem;
+    padding: .5rem;
+    margin: 1rem auto;
+}
 footer {
     background: darkslategray;
     height: 3rem;

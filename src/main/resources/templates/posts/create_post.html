@@ -3,17 +3,14 @@
 <head th:replace="partials/header :: head('Create a Post')"/>
 <body>
 <div th:replace="partials/navbar :: navbar"></div>
-<h1>Create a New Post</h1>
-<form th:action="@{/posts/create}" method="post" th:object="${post}">
-    <label>Title:
-        <input type="text" th:field="*{title}"/>
-    </label>
-    <label>Post:
-        <input type="text" th:field="*{body}"/>
-    </label>
-    <input type="submit"/>
-</form>
-
+<div class="container">
+    <h1 class="text-center">Create a New Post</h1>
+    <form th:action="@{/posts/create}" method="post" th:object="${post}">
+        <input class="input input-title" type="text" th:field="*{title}" placeholder="Title"/>
+        <textarea th:field="*{body}" placeholder="What's on your mind?"></textarea>
+        <input class="input input-button" type="submit"/>
+    </form>
+</div>
 <div th:replace="partials/footer :: footer"></div>
 
 </body>

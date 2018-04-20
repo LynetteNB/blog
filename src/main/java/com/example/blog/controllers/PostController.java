@@ -39,8 +39,8 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post){
-        postService.save(post);
-        return "redirect:/posts";
+        Post newPost = postService.save(post);
+        return "redirect:/posts" + newPost.getId();
     }
     @GetMapping("/posts/{id}/edit")
     public String viewEditPost(@PathVariable long id, Model model){
@@ -52,7 +52,7 @@ public class PostController {
     @PostMapping("/posts/edit")
     public String editPost(@ModelAttribute Post post){
         postService.save(post);
-        return "redirect:/posts";
+        return "redirect:/posts/" + post.getId();
     }
 
     @PostMapping("/posts/delete")
