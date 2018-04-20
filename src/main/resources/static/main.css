@@ -23,6 +23,25 @@ p {
 .container {
     margin: 1rem auto;
     width: 80%;
+    display: flex;
+}
+.about-me {
+    width: 30%;
+}
+.about-me img {
+    width: 100%;
+}
+.about-me-social {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem;
+    font-size: 1.5rem;
+}
+.about-me-social a{
+    color: pink;
+}
+.postList{
+    width: 70%;
 }
 .text-center {
     text-align: center;

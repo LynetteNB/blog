@@ -7,6 +7,7 @@
 <div class="container">
     <h1 class="text-center" th:text="${post.title}"></h1>
     <p class="postBody" th:text="${post.body}"></p>
+    <p class="postBody" th:text="${'Post By: ' + post.user.email}"></p>
 
     <a th:href="@{/posts/{id}/edit(id=${post.id})}"><button class="input input-button">Edit</button></a>
     <form action="/posts/delete" method="post">

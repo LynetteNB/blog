@@ -1,6 +1,8 @@
 package com.example.blog.controllers;
 
 import com.example.blog.models.Post;
+import com.example.blog.models.User;
+import com.example.blog.repositories.UserRepository;
 import com.example.blog.services.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +13,11 @@ import java.util.List;
 @Controller
 public class PostController {
     private final PostService postService;
+    private final UserRepository userRepo;
 
-    public PostController(PostService postService) {
+    public PostController(PostService postService, UserRepository userRepo) {
         this.postService = postService;
+        this.userRepo = userRepo;
     }
 
     @GetMapping("/posts")
@@ -39,8 +43,10 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post){
+        User user = userRepo.findOne( 1L);
+        post.setUser(user);
         Post newPost = postService.save(post);
-        return "redirect:/posts" + newPost.getId();
+        return "redirect:/posts/" + newPost.getId();
     }
     @GetMapping("/posts/{id}/edit")
     public String viewEditPost(@PathVariable long id, Model model){
