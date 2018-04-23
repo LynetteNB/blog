@@ -57,7 +57,7 @@ public class PostController {
 //        for(String category : categories.split(",")) {
 //            category = category.toLowerCase().trim();
 //            System.out.println(category + " ");
-//            if(categoryRepo.findByName(category) == null){
+//            if(categoryRepo.findByCategory(category) == null){
 //                Category newCategory = new Category();
 //                newCategory.setCategory(category);
 //                newCategory = categoryRepo.save(newCategory);

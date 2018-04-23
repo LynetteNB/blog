@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface CategoryRepository extends CrudRepository<Category, Long>{
     Category findById(Long id);
 
-    @Query(value="SELECT * FROM categories WHERE category = ?1", nativeQuery = true)
-    Category findByName(String name);
+//    @Query(value="SELECT * FROM categories WHERE category = ?1", nativeQuery = true)
+    Category findByCategory(String category);
 
 }
