@@ -4,6 +4,7 @@ import com.example.blog.models.Post;
 import com.example.blog.repositories.PostRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -26,6 +27,13 @@ public class PostService {
     public void deleteById(Long id) {
         Post post = postRepo.findById(id);
         postRepo.delete(post);
+    }
+
+    public String today() {
+        LocalDate today = LocalDate.now();
+        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        return months[today.getMonthValue()-1] + " " + today.getDayOfMonth() + ", " + today.getYear();
+
     }
 
 }

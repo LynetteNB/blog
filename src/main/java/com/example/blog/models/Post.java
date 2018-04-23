@@ -2,6 +2,7 @@ package com.example.blog.models;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="posts")
@@ -16,21 +17,36 @@ public class Post {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String body;
 
+    @Column(nullable=false)
+    private String createdAt;
+
     @ManyToOne (optional = false)
     @JoinColumn (name = "user_id")
     private User user;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "categories",
+            joinColumns = {@JoinColumn(name="post_id")},
+            inverseJoinColumns = {@JoinColumn(name="category_id")})
+    private List<Category> categories;
+
     public Post () {}
-    public Post(Long id, String title, String body, User user) {
+    public Post(Long id, String title, String body, User user, String createdAt, List<Category> categories) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.user = user;
+        this.createdAt = createdAt;
+        this.categories = categories;
     }
-    public Post(String title, String body, User user) {
+
+    public Post(String title, String body, User user, String createdAt, List<Category> categories) {
         this.title = title;
         this.body = body;
         this.user = user;
+        this.createdAt = createdAt;
+        this.categories = categories;
     }
 
     public String getTitle() {
@@ -63,5 +79,21 @@ public class Post {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }

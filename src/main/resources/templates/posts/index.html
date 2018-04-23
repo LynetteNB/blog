@@ -3,19 +3,18 @@
 <head th:replace="partials/header :: head('Posts')"/>
 <body>
 <div th:replace="partials/navbar :: navbar"></div>
-<div class="container">
-    <div class="postList">
+<div class="container flex-container">
+    <div class="post-container">
         <h1>Posts</h1>
-        <div th:each="post : ${posts}" class="displayPost">
+        <div th:each="post : ${posts}" class="display-post">
             <h2><a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}"></a></h2>
-            <p th:text="${post.body}"></p>
+            <p class="cute-text" th:text="${post.createdAt}"></p>
+            <p class="cut-off" th:text="${post.body}"></p>
             <hr/>
         </div>
     </div>
     <div th:replace="partials/aboutme :: aboutme"></div>
 </div>
-
 <div th:replace="partials/footer :: footer"></div>
-
 </body>
 </html>

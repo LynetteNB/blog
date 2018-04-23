@@ -4,17 +4,22 @@
 <body>
 <div th:replace="partials/navbar :: navbar"></div>
 
-<div class="container">
-    <h1 class="text-center" th:text="${post.title}"></h1>
-    <p class="postBody" th:text="${post.body}"></p>
-    <p class="postBody" th:text="${'Post By: ' + post.user.email}"></p>
+<div class="container flex-container">
+    <div class="post-container">
+        <div class="display-post">
+            <h1 class="text-center" th:text="${post.title}"></h1>
+            <p class="cute-text" th:text="${post.createdAt}"></p>
+            <p class="post-body" th:text="${post.body}"></p>
+            <p th:text="${'Post By: ' + post.user.email}"></p>
+        </div>
 
-    <a th:href="@{/posts/{id}/edit(id=${post.id})}"><button class="input input-button">Edit</button></a>
-    <form action="/posts/delete" method="post">
-        <input type="hidden" name="id" th:value="${post.id}"/>
-        <button class="input input-button">Delete</button>
-    </form>
-
+        <a th:href="@{/posts/{id}/edit(id=${post.id})}"><button class="input input-button">Edit</button></a>
+        <form action="/posts/delete" method="post">
+            <input type="hidden" name="id" th:value="${post.id}"/>
+            <button class="input input-button">Delete</button>
+        </form>
+    </div>
+    <div th:replace="partials/aboutme :: aboutme"></div>
 </div>
 <div th:replace="partials/footer :: footer"></div>
 </body>

@@ -45,6 +45,7 @@ public class PostController {
     public String createPost(@ModelAttribute Post post){
         User user = userRepo.findOne( 1L);
         post.setUser(user);
+        post.setCreatedAt(postService.today());
         Post newPost = postService.save(post);
         return "redirect:/posts/" + newPost.getId();
     }
