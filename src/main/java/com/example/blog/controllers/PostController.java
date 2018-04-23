@@ -24,6 +24,14 @@ public class PostController {
         this.categoriesService = categoriesService;
     }
 
+    @GetMapping("/")
+    public String showHome(Model model){
+        List<Post> posts = postService.findAll();
+        Collections.reverse(posts);
+        model.addAttribute("posts", posts);
+        return "posts/index";
+    }
+
     @GetMapping("/posts")
     public String showPosts(Model model){
         List<Post> posts = postService.findAll();
