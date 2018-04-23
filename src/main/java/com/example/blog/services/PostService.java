@@ -1,5 +1,6 @@
 package com.example.blog.services;
 
+import com.example.blog.models.Category;
 import com.example.blog.models.Post;
 import com.example.blog.repositories.PostRepository;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,6 @@ public class PostService {
         Post post = postRepo.findById(id);
         postRepo.delete(post);
     }
-
     public String today() {
         LocalDate today = LocalDate.now();
         String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
