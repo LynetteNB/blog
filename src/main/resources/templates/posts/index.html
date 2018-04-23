@@ -10,6 +10,11 @@
             <h2><a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}"></a></h2>
             <p class="cute-text" th:text="${post.createdAt}"></p>
             <p class="cut-off" th:text="${post.body}"></p>
+            <p>
+                <span class="categories-text" th:each="category : ${post.categories}">
+                    <span class="cute-text" th:text="${category.category} "></span>
+                </span>
+            </p>
             <hr/>
         </div>
     </div>

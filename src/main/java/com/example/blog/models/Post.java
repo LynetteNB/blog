@@ -26,7 +26,7 @@ public class Post {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "categories",
+            name = "posts_categories",
             joinColumns = {@JoinColumn(name="post_id")},
             inverseJoinColumns = {@JoinColumn(name="category_id")})
     private List<Category> categories;
@@ -47,6 +47,12 @@ public class Post {
         this.user = user;
         this.createdAt = createdAt;
         this.categories = categories;
+    }
+    public Post(String title, String body, User user, String createdAt) {
+        this.title = title;
+        this.body = body;
+        this.user = user;
+        this.createdAt = createdAt;
     }
 
     public String getTitle() {
