@@ -7,11 +7,11 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 @SpringBootApplication
 public class BlogApplication extends SpringBootServletInitializer {
+    public static void main(String[] args) {
+        SpringApplication.run(BlogApplication.class, args);
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(BlogApplication.class, args);
-	}
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(BlogApplication.class);
-	}
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(BlogApplication.class);
+    }
 }
