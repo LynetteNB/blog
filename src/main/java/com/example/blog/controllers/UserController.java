@@ -32,4 +32,9 @@ public class UserController {
         userRepo.save(user);
         return "redirect:/login";
     }
+
+    @GetMapping("/login")
+    public String showLoginForm() {
+        return "users/login";
+    }
 }
