@@ -30,6 +30,13 @@ public class User {
     public User() {
     }
 
+    public User(User copy) {
+        id = copy.id; // This line is SUPER important! Many things won't work if it's absent
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+    }
+
     public User(String username, String email, String password, String firstName, String lastName, List<Post> posts, long id) {
         this.username = username;
         this.email = email;
