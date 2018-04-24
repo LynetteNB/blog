@@ -11,8 +11,8 @@
             <p class="cute-text" th:text="${post.createdAt}"></p>
             <p class="post-body" th:text="${post.body}"></p>
             <p>
-                <span class="categories-text" th:each="category : ${post.categories}">
-                    <span class="cute-text" th:text="${category.category} "></span>
+                <span th:each="category : ${post.categories}">
+                    <a th:href="@{/category/{category}(category=${category.category})}" class="category" th:text="${category.category} "></a>
                 </span>
             </p>
             <p th:text="${'Post By: ' + post.user.email}"></p>

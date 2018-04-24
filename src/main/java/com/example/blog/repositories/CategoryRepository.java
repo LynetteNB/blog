@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CategoryRepository extends CrudRepository<Category, Long>{
     Category findById(Long id);
-
-//    @Query(value="SELECT * FROM categories WHERE category = ?1", nativeQuery = true)
     Category findByCategory(String category);
 
 }

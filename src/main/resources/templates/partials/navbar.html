@@ -14,7 +14,7 @@
         <a sec:authorize="isAnonymous()" href="/login">Login</a>
         <a sec:authorize="isAnonymous()" href="/sign-up">Register</a>
         <form th:action="@{/logout}" th:method="post" sec:authorize="isAuthenticated()">
-            <button>Logout</button>
+            <button class="button-as-link">Logout</button>
         </form>
     </div>
 </div>

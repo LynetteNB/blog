@@ -17,12 +17,10 @@ import java.util.List;
 @Controller
 public class PostController {
     private final PostService postService;
-    private final UserRepository userRepo;
     private final CategoriesService categoriesService;
 
-    public PostController(PostService postService, UserRepository userRepo, CategoriesService categoriesService) {
+    public PostController(PostService postService, CategoriesService categoriesService) {
         this.postService = postService;
-        this.userRepo = userRepo;
         this.categoriesService = categoriesService;
     }
 
