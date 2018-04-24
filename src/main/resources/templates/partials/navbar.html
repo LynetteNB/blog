@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="header :: head" />
 <body>
 
@@ -9,11 +9,13 @@
     </div>
     <div class="links-nav">
         <a href="/posts">View All Posts</a>
-        <a href="/posts/create">Create a New Post</a><ul>
-        <form th:action="@{/logout}" th:method="post">
+        <a href="/posts/create">Create a New Post</a>
+
+        <a sec:authorize="isAnonymous()" href="/login">Login</a>
+        <a sec:authorize="isAnonymous()" href="/sign-up">Register</a>
+        <form th:action="@{/logout}" th:method="post" sec:authorize="isAuthenticated()">
             <button>Logout</button>
         </form>
-    </ul>
     </div>
 </div>
 
