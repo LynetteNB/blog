@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="partials/header :: head('Show Post')"/>
 <body>
 <div th:replace="partials/navbar :: navbar"></div>
@@ -17,12 +17,13 @@
             </p>
             <p th:text="${'Post By: ' + post.user.email}"></p>
         </div>
-        <div th:if="${isAnonymous != 'anonymousUser'}">
-            <div th:if="${user.id == post.user.id}">
-                <a th:href="@{/posts/{id}/edit(id=${post.id})}"><button class="input input-button">Edit</button></a>
+        <div sec:authorize="isAuthenticated()">
+            <div th:if="${#authentication.principal.id == post.user.id}">
+                <a th:href="@{/posts/{id}/edit(id=${post.id})}" class="link-as-button"><button class="input input-button">Edit</button></a>
                 <form action="/posts/delete" method="post">
                     <!--Need below line to submit for and still have cross site scripting enabled-->
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
                     <input type="hidden" name="id" th:value="${post.id}"/>
                     <button class="input input-button">Delete</button>
                 </form>

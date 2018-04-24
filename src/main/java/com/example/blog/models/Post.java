@@ -1,7 +1,10 @@
 package com.example.blog.models;
 
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -12,9 +15,12 @@ public class Post {
     private Long id;
 
     @Column(nullable = false)
+    @NotBlank(message = "Post title cannot be blank.")
+    @Size(max=150, message = "Title cannot be more than 150 characters.")
     private String title;
 
     @Column(nullable = false, columnDefinition = "TEXT")
+    @NotBlank(message = "Blog post cannot be blank.")
     private String body;
 
     @Column(nullable=false)

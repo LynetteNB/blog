@@ -9,8 +9,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,31 +45,26 @@ public class PostController {
     @GetMapping("/posts/{id}")
     public String viewIndividualPost(@PathVariable long id, Model model){
         Post post = postService.findOne(id);
-        User user = null;
-        Object isAnonymous = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(isAnonymous != "anonymousUser") {
-            user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        }
-        model.addAttribute("isAnonymous", isAnonymous);
-        model.addAttribute("user", user);
         model.addAttribute("post", post);
         return "posts/show";
     }
 
     @GetMapping("/posts/create")
     public String viewCreatePost(Model model){
-        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
-            return "redirect:/login";
-        }
         Post post = new Post();
         model.addAttribute(post);
         return "posts/create_post";
     }
 
     @PostMapping("/posts/create")
-    public String createPost(@ModelAttribute Post post, @RequestParam String categoriesString){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        post.setUser(user);
+    public String createPost(@Valid Post post, Errors errors, Model model, @RequestParam String categoriesString){
+        if (errors.hasErrors()) {
+            model.addAttribute("errors", errors);
+            model.addAttribute("post", post);
+            model.addAttribute("categoriesString", categoriesString);
+            return "posts/create_post";
+        }
+        post.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         post.setCreatedAt(postService.today());
         post.setCategories(categoriesService.makeCategoryList(categoriesString));
         Post newPost = postService.save(post);
@@ -86,7 +83,13 @@ public class PostController {
     }
 
     @PostMapping("/posts/edit")
-    public String editPost(@ModelAttribute Post post, @RequestParam String categoriesString){
+    public String editPost(@Valid Post post, Errors errors, Model model, @RequestParam String categoriesString){
+        if (errors.hasErrors()) {
+            model.addAttribute("errors", errors);
+            model.addAttribute("post", post);
+            model.addAttribute("categoriesString", categoriesString);
+            return "posts/edit_post";
+        }
         post.setCategories(categoriesService.makeCategoryList(categoriesString));
         postService.save(post);
         return "redirect:/posts/" + post.getId();

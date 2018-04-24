@@ -13,6 +13,9 @@ a:hover, .button-as-link:hover {
 a:visited {
     color: darkslategray;
 }
+button {
+    cursor: pointer;
+}
 p {
     font-size: 1rem;
 }
@@ -45,6 +48,9 @@ p {
     padding: 1rem;
     font-size: 1rem;
     cursor: pointer;
+}
+.link-as-button:hover {
+    text-decoration: none;
 }
 .container {
     margin: 1rem auto;
