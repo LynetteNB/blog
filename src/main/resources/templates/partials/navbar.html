@@ -9,7 +9,11 @@
     </div>
     <div class="links-nav">
         <a href="/posts">View All Posts</a>
-        <a href="/posts/create">Create a New Post</a>
+        <a href="/posts/create">Create a New Post</a><ul>
+        <form th:action="@{/logout}" th:method="post">
+            <button>Logout</button>
+        </form>
+    </ul>
     </div>
 </div>
 
