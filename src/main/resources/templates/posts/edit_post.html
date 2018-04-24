@@ -7,8 +7,9 @@
     <div class="container">
         <h1 class="text-center">Edit Your Post</h1>
         <form th:action="@{/posts/edit}" method="post" th:object="${post}">
-            <input class="input input-title" type="text" th:field="*{title}" th:value="${title}"/>
-            <textarea th:field="*{body}" th:value="${body}"></textarea>
+            <input class="input input-title" type="text" th:field="*{title}" th:value="${title}" placeholder="Title"/>
+            <textarea th:field="*{body}" th:value="${body}" placeholder="What's on your mind?"></textarea>
+            <input class="input input-title" type="text" th:name="categoriesString" th:value="${categoriesString}" placeholder="Categories"/>
             <input type="hidden" th:field="*{id}" th:value="${id}"/>
             <input type="hidden" th:field="*{createdAt}" th:value="${createdAt}"/>
             <input type="hidden" th:field="*{user}" th:value="${user}"/>

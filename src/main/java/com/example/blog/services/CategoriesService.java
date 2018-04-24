@@ -5,6 +5,7 @@ import com.example.blog.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -29,5 +30,19 @@ public class CategoriesService {
             }
         };
         return postCategories;
+    }
+    public String makeCategoryString(List<Category> categoryList) {
+        String categories = "";
+//        for(Category category : categoryList) {
+//            categories += category.getCategory() + ", ";
+//        }
+        Iterator<Category> category = categoryList.iterator();
+        if (category.hasNext()) {
+            categories += category.next().getCategory();
+        }
+        while (category.hasNext()) {
+            categories += ", " + category.next().getCategory();
+        }
+        return categories;
     }
 }

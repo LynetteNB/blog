@@ -77,6 +77,9 @@ public class PostController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Post post = postService.findOne(id);
         if(user.getId() == post.getUser().getId()) {
+            System.out.println(categoriesService.makeCategoryString(post.getCategories()));
+            System.out.println(post.getCategories());
+            model.addAttribute("categoriesString", categoriesService.makeCategoryString(post.getCategories()));
             model.addAttribute(post);
             return "posts/edit_post";
         }
@@ -84,7 +87,8 @@ public class PostController {
     }
 
     @PostMapping("/posts/edit")
-    public String editPost(@ModelAttribute Post post){
+    public String editPost(@ModelAttribute Post post, @RequestParam String categoriesString){
+        post.setCategories(categoriesService.makeCategoryList(categoriesString));
         postService.save(post);
         return "redirect:/posts/" + post.getId();
     }
