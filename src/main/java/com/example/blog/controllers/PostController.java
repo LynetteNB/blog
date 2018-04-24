@@ -74,9 +74,13 @@ public class PostController {
     }
     @GetMapping("/posts/{id}/edit")
     public String viewEditPost(@PathVariable long id, Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Post post = postService.findOne(id);
-        model.addAttribute(post);
-        return "posts/edit_post";
+        if(user.getId() == post.getUser().getId()) {
+            model.addAttribute(post);
+            return "posts/edit_post";
+        }
+        return "redirect:/posts";
     }
 
     @PostMapping("/posts/edit")
