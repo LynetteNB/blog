@@ -7,6 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserDetailsLoader implements UserDetailsService {
@@ -24,5 +28,72 @@ public class UserDetailsLoader implements UserDetailsService {
         }
 
         return new UserWithRoles(user);
+    }
+
+    public Errors checkRegistration(User user, Errors errors) {
+        if (!user.getPassword().matches(".{6,}")) {
+            errors.rejectValue(
+                    "password",
+                    "user.password",
+                    "Password must be at least 6 characters in length."
+            );
+        }
+        if (!user.getPassword().matches("\\S+$")) {
+            errors.rejectValue(
+                    "password",
+                    "user.password",
+                    "Password must not contain any whitespace."
+            );
+        }
+        if (!user.getPassword().matches("(.*[a-z].*)")) {
+            errors.rejectValue(
+                    "password",
+                    "user.password",
+                    "Password must include a lower case letter."
+            );
+        }
+        if (!user.getPassword().matches("(.*[A-Z].*)")) {
+            errors.rejectValue(
+                    "password",
+                    "user.password",
+                    "Password must include an upper case letter."
+            );
+        }
+        if (!user.getPassword().matches("(.*[0-9].*)")) {
+            errors.rejectValue(
+                    "password",
+                    "user.password",
+                    "Password must include a number."
+            );
+        }
+        if (!user.getPassword().matches("(.*[!@#$%^&+=].*)")) {
+            errors.rejectValue(
+                    "password",
+                    "user.password",
+                    "Password must include a special character."
+            );
+        }
+        if (userRepo.findByUsername(user.getUsername()) != null) {
+            errors.rejectValue(
+                    "username",
+                    "user.username",
+                    "Username already exists."
+            );
+        }
+        if (userRepo.findByEmail(user.getEmail()) != null) {
+            errors.rejectValue(
+                    "email",
+                    "user.email",
+                    "There is already an account with this email."
+            );
+        }
+        if(!(user.getEmail().contains("@") && user.getEmail().contains("."))) {
+            errors.rejectValue(
+                    "email",
+                    "user.email",
+                    "Please enter a valid email."
+            );
+        }
+        return errors;
     }
 }

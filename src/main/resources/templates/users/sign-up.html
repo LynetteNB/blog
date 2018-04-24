@@ -7,11 +7,12 @@
     <h1>Create an account</h1>
     <form th:action="@{/sign-up}" method="POST" th:object="${user}">
         <input class="input input-title" id="username" th:field="*{username}" placeholder="Username" />
-
+        <p class="validation-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}" />
         <input class="input input-title" id="email" th:field="*{email}" placeholder="Email" />
-
+        <p class="validation-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" />
         <input class="input input-title" id="password" type="password" th:field="*{password}" placeholder="Password"/>
-
+        <input class="input input-title" id="verifyPassword" type="password" name="verifyPassword" placeholder="Verify Password"/>
+        <p class="validation-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" />
         <input value="Sign me up!" type="submit" class="input input-button"/>
     </form>
 </div>

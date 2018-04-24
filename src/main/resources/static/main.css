@@ -131,6 +131,10 @@ p {
 .input.input-title {
     border:solid 1px black;
 }
+.validation-error {
+    color: red;
+    text-align: center;
+}
 textarea {
     display: block;
     width: 80%;
