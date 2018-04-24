@@ -5,6 +5,8 @@ import com.example.blog.models.User;
 import com.example.blog.repositories.UserRepository;
 import com.example.blog.services.CategoriesService;
 import com.example.blog.services.PostService;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +37,13 @@ public class PostController {
     @GetMapping("/posts/{id}")
     public String viewIndividualPost(@PathVariable long id, Model model){
         Post post = postService.findOne(id);
+        User user = null;
+        Object isAnonymous = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(isAnonymous != "anonymousUser") {
+            user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }
+        model.addAttribute("isAnonymous", isAnonymous);
+        model.addAttribute("user", user);
         model.addAttribute("post", post);
         return "posts/show";
     }
@@ -48,7 +57,7 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post, @RequestParam String categoriesString){
-        User user = userRepo.findOne( 1L);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setUser(user);
         post.setCreatedAt(postService.today());
         post.setCategories(categoriesService.makeCategoryList(categoriesString));
