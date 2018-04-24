@@ -9,10 +9,10 @@
     </div>
     <div class="links-nav">
         <a href="/posts">View All Posts</a>
-        <a href="/posts/create">Create a New Post</a>
 
         <a sec:authorize="isAnonymous()" href="/login">Login</a>
         <a sec:authorize="isAnonymous()" href="/sign-up">Register</a>
+        <a sec:authorize="isAuthenticated()" href="/posts/create">Create a New Post</a>
         <form th:action="@{/logout}" th:method="post" sec:authorize="isAuthenticated()">
             <button class="button-as-link">Logout</button>
         </form>
