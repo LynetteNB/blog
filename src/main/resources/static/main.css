@@ -51,6 +51,7 @@ p {
 }
 .link-as-button:hover {
     text-decoration: none;
+    cursor: pointer;
 }
 .container {
     margin: 1rem auto;
@@ -127,13 +128,30 @@ p {
 .input.input-button {
     background: cadetblue;
     color: white;
+    cursor: pointer;
 }
 .input.input-title {
     border:solid 1px black;
 }
 .validation-error {
-    color: red;
+    color: #bf0501;
     text-align: center;
+    padding: .5rem;
+}
+.validation-info {
+    color: cadetblue;
+    text-align: center;
+    padding: .5rem;
+    background: #e5f6f7;
+    width: 70%;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+.validation-error-background {
+    background: #f3dede;
+    width: 70%;
+    margin: 0 auto;
+    border-radius: 5px;
 }
 textarea {
     display: block;
@@ -149,4 +167,47 @@ footer {
     height: 3rem;
     color: white;
     width: 100%;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 25% auto; /* 15% from the top and centered */
+    padding: 1rem;
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+    border-radius: 10px;
+}
+.modal-content p {
+    clear: both;
+    text-align: center;
+    font-weight: bold;
+}
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
