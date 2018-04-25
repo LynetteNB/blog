@@ -37,6 +37,9 @@ public class Post {
             inverseJoinColumns = {@JoinColumn(name="category_id")})
     private List<Category> categories;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    private List<Comment> comments;
+
     public Post () {}
     public Post(Long id, String title, String body, User user, String createdAt, List<Category> categories) {
         this.id = id;

@@ -2,6 +2,7 @@ package com.example.blog.services;
 
 import com.example.blog.models.User;
 import com.example.blog.models.UserWithRoles;
+import com.example.blog.repositories.RolesRepository;
 import com.example.blog.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,9 +16,11 @@ import java.util.List;
 @Service
 public class UserDetailsLoader implements UserDetailsService {
     private final UserRepository userRepo;
+    private final RolesRepository rolesRepo;
 
-    public UserDetailsLoader(UserRepository userRepo) {
+    public UserDetailsLoader(UserRepository userRepo, RolesRepository rolesRepo) {
         this.userRepo = userRepo;
+        this.rolesRepo = rolesRepo;
     }
 
     @Override
@@ -27,7 +30,7 @@ public class UserDetailsLoader implements UserDetailsService {
             throw new UsernameNotFoundException("No user found for " + username);
         }
 
-        return new UserWithRoles(user);
+        return new UserWithRoles(user, rolesRepo.ofUserWith(username));
     }
 
     public Errors checkRegistration(User user, Errors errors) {

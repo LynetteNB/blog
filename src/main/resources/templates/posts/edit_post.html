@@ -13,7 +13,9 @@
         <div class="validation-error-background">
             <p class="validation-error" th:if="${#fields.hasErrors('body')}" th:errors="*{body}" />
         </div>
-        <textarea th:field="*{body}" th:value="${body}" placeholder="What's on your mind?"></textarea>
+        <div class="text-area">
+            <textarea th:field="*{body}" th:value="${body}" placeholder="What's on your mind?"></textarea>
+        </div>
         <input class="input input-title" type="text" th:name="categoriesString" th:value="${categoriesString}" placeholder="Categories"/>
         <input type="hidden" th:field="*{id}" th:value="${id}"/>
         <input type="hidden" th:field="*{createdAt}" th:value="${createdAt}"/>

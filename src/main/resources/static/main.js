@@ -24,3 +24,10 @@ window.onclick = function(event) {
         deleteModal.style.display = "none";
     }
 };
+
+let editor = new nicEditor({fullPanel : false}).panelInstance('text');
+
+window.resize(function() {
+    editor.removeInstance('text');
+    editor = new nicEditor({fullPanel : false}).panelInstance('text');
+});

@@ -9,7 +9,7 @@
         <div class="display-post">
             <h1 class="text-center" th:text="${post.title}"></h1>
             <p class="cute-text" th:text="${post.createdAt}"></p>
-            <p class="post-body" th:text="${post.body}"></p>
+            <div class="post-body" th:utext="${post.body}"></div>
             <p>
                 <span th:each="category : ${post.categories}">
                     <a th:href="@{/category/{category}(category=${category.category})}" class="category" th:text="${category.category} "></a>
