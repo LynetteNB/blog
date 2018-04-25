@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/header :: head('Ooops, ' + ${error})"/>
+<body>
+<div th:replace="partials/navbar :: navbar"></div>
+<th:block th:switch="${error}">
+    <div th:case="'Not Found'">
+        <h1 class="text-center">Page not found!!</h1>
+    </div>
+    <div th:case="'Forbidden'">
+        <h1  class="text-center">You don't have permission to view this page.</h1>
+    </div>
+</th:block>
+<div th:replace="partials/footer :: footer"></div>
+</body>
+</html>
