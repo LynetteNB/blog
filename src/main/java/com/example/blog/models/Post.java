@@ -41,21 +41,23 @@ public class Post {
     private List<Comment> comments;
 
     public Post () {}
-    public Post(Long id, String title, String body, User user, String createdAt, List<Category> categories) {
+    public Post(Long id, String title, String body, User user, String createdAt, List<Category> categories, List<Comment> comments) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.user = user;
         this.createdAt = createdAt;
         this.categories = categories;
+        this.comments = comments;
     }
 
-    public Post(String title, String body, User user, String createdAt, List<Category> categories) {
+    public Post(String title, String body, User user, String createdAt, List<Category> categories, List<Comment> comments) {
         this.title = title;
         this.body = body;
         this.user = user;
         this.createdAt = createdAt;
         this.categories = categories;
+        this.comments = comments;
     }
     public Post(String title, String body, User user, String createdAt) {
         this.title = title;
@@ -110,5 +112,13 @@ public class Post {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

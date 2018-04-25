@@ -14,11 +14,9 @@ import java.util.List;
 
 @Controller
 public class CategoryController {
-    private final PostService postService;
     private final CategoryRepository categoryRepo;
 
-    public CategoryController(PostService postService, CategoryRepository categoryRepo) {
-        this.postService = postService;
+    public CategoryController(CategoryRepository categoryRepo) {
         this.categoryRepo = categoryRepo;
     }
 

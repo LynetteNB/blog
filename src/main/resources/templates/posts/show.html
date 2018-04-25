@@ -7,11 +7,12 @@
 <div class="container flex-container">
     <div class="post-container">
         <div class="display-post">
+            <!--Blog Post-->
             <h1 class="text-center" th:text="${post.title}"></h1>
             <p class="cute-text" th:text="${post.createdAt}"></p>
             <div class="post-body" th:utext="${post.body}"></div>
-            <p>
-                <span th:each="category : ${post.categories}">
+            <p th:if="${post.categories.size() != 0}">
+                <span  th:each="category : ${post.categories}">
                     <a th:href="@{/category/{category}(category=${category.category})}" class="category" th:text="${category.category} "></a>
                 </span>
             </p>
@@ -23,9 +24,39 @@
                 <button class="input input-button" id="openDeleteModal">Delete</button>
             </div>
         </div>
+        <!--List Comments-->
+        <div class="comments">
+            <div th:each="comment : ${comments}">
+                <p th:text="${comment.name}"></p>
+                <p class="comment" th:text="${comment.commentBody} "></p>
+                <p th:text="${comment.createdAt}" class="cute-text"></p>
+            </div>
+        </div>
+        <!--Post a new Comment for Blog-->
+        <h1 class="text-center">Share Your Thoughts</h1>
+        <p>Your email address will not be published.</p>
+        <form th:action="@{/posts/comment}" method="post" th:object="${comment}">
+            <div class="validation-error-background">
+                <p class="validation-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" />
+            </div>
+            <input class="input input-title" type="text" th:field="*{name}" placeholder="Name"/>
+            <div class="validation-error-background">
+                <p class="validation-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" />
+            </div>
+            <input class="input input-title" type="text" th:field="*{email}" placeholder="Email"/>
+            <div class="validation-error-background">
+                <p class="validation-error" th:if="${#fields.hasErrors('commentBody')}" th:errors="*{commentBody}" />
+            </div>
+            <div class="text-area">
+                <textarea th:field="*{commentBody}" placeholder="What are your thoughts?"></textarea>
+            </div>
+            <input type="hidden" name="postId" th:value="${post.id}"/>
+            <input class="input input-button" type="submit"/>
+        </form>
     </div>
     <div th:replace="partials/aboutme :: aboutme"></div>
-
+</div>
+<!--Modal if user wants to delete their post.-->
 <div id="deleteModal" class="modal">
 
     <!-- Modal content -->
@@ -41,7 +72,6 @@
         </form>
     </div>
 
-</div>
 </div>
 <div th:replace="partials/footer :: footer"></div>
 </body>

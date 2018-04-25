@@ -16,7 +16,7 @@ public class Comment {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     @NotBlank(message = "Comment cannot be blank.")
-    private String comment;
+    private String commentBody;
 
     @Column(nullable = false)
     @NotBlank(message = "Name cannot be blank.")
@@ -35,10 +35,17 @@ public class Comment {
     @JoinColumn (name = "post_id")
     private Post post;
 
+
+    private boolean disabled = false;
+
+    public void disable() {
+        this.disabled = true;
+    }
+
     public Comment () {}
 
-    public Comment(String comment, String name, String email, String createdAt, Post post, Long id) {
-        this.comment = comment;
+    public Comment(String commentBody, String name, String email, String createdAt, Post post, Long id) {
+        this.commentBody = commentBody;
         this.name = name;
         this.email = email;
         this.createdAt = createdAt;
@@ -46,8 +53,8 @@ public class Comment {
         this.id = id;
     }
 
-    public Comment(String comment, String name, String email, String createdAt, Post post) {
-        this.comment = comment;
+    public Comment(String commentBody, String name, String email, String createdAt, Post post) {
+        this.commentBody = commentBody;
         this.name = name;
         this.email = email;
         this.createdAt = createdAt;
@@ -62,12 +69,12 @@ public class Comment {
         this.id = id;
     }
 
-    public String getComment() {
-        return comment;
+    public String getCommentBody() {
+        return commentBody;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setCommentBody(String commentBody) {
+        this.commentBody = commentBody;
     }
 
     public String getName() {
@@ -100,6 +107,14 @@ public class Comment {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 }
 

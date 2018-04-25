@@ -1,9 +1,13 @@
 package com.example.blog.controllers;
 
+import com.example.blog.models.Comment;
 import com.example.blog.models.Post;
 import com.example.blog.models.User;
+import com.example.blog.repositories.CommentRepository;
+import com.example.blog.repositories.PostRepository;
 import com.example.blog.repositories.UserRepository;
 import com.example.blog.services.CategoriesService;
+import com.example.blog.services.CommentService;
 import com.example.blog.services.PostService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,10 +24,16 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
     private final CategoriesService categoriesService;
+    private final CommentRepository commentRepo;
+    private final CommentService commentService;
+    private final PostRepository postRepo;
 
-    public PostController(PostService postService, CategoriesService categoriesService) {
+    public PostController(PostService postService, CategoriesService categoriesService, CommentRepository commentRepo, CommentService commentService, PostRepository postRepo) {
         this.postService = postService;
         this.categoriesService = categoriesService;
+        this.commentRepo = commentRepo;
+        this.commentService = commentService;
+        this.postRepo = postRepo;
     }
 
     @GetMapping("/")
@@ -45,7 +55,11 @@ public class PostController {
     @GetMapping("/posts/{id}")
     public String viewIndividualPost(@PathVariable long id, Model model){
         Post post = postService.findOne(id);
+        List<Comment> comments = commentRepo.findByPostId(post.getId());
+        Comment comment = new Comment();
         model.addAttribute("post", post);
+        model.addAttribute("comments", comments);
+        model.addAttribute("comment", comment);
         return "posts/show";
     }
 
@@ -66,7 +80,9 @@ public class PostController {
         }
         post.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         post.setCreatedAt(postService.today());
-        post.setCategories(categoriesService.makeCategoryList(categoriesString));
+        if(!categoriesString.trim().equals("")){
+            post.setCategories(categoriesService.makeCategoryList(categoriesString));
+        }
         Post newPost = postService.save(post);
         return "redirect:/posts/" + newPost.getId();
     }
