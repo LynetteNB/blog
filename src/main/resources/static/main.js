@@ -25,9 +25,14 @@ window.onclick = function(event) {
     }
 };
 
-let editor = new nicEditor({fullPanel : false}).panelInstance('text');
-
-window.resize(function() {
-    editor.removeInstance('text');
-    editor = new nicEditor({fullPanel : false}).panelInstance('text');
+//nice Editor for creating and editing a post
+bkLib.onDomLoaded(function() {
+    let editorArray = document.getElementsByClassName("nicEditor");
+    for (let i = 0; i < editorArray.length; ++i) {
+        nicEditors.editors.push(
+            new nicEditor().panelInstance(
+                editorArray[i]
+            )
+        );
+    }
 });

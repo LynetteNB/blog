@@ -25,6 +25,7 @@
             </div>
         </div>
         <!--List Comments-->
+        <h2>Comments</h2>
         <div class="comments">
             <div th:each="comment : ${comments}">
                 <p th:text="${comment.name}"></p>
@@ -33,7 +34,7 @@
             </div>
         </div>
         <!--Post a new Comment for Blog-->
-        <h1 class="text-center">Share Your Thoughts</h1>
+        <h2>Share Your Thoughts</h2>
         <p>Your email address will not be published.</p>
         <form th:action="@{/posts/comment}" method="post" th:object="${comment}">
             <div class="validation-error-background">

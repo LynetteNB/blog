@@ -4,18 +4,19 @@
 <body>
 <div th:replace="partials/navbar :: navbar"></div>
 <div class="container flex-container">
-    <div class="post-container">
+    <div class="mainView">
         <h1>Posts</h1>
-        <div th:each="post : ${posts}" class="display-post">
-            <h2><a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}"></a></h2>
-            <p class="cute-text" th:text="${post.createdAt}"></p>
-            <p class="cut-off" th:text="${post.body}"></p>
-            <p>
-                <span th:each="category : ${post.categories}">
-                    <a th:href="@{/category/{category}(category=${category.category})}" class="category" th:text="${category.category} "></a>
-                </span>
-            </p>
-            <hr/>
+        <div class="post-container">
+            <div th:each="post : ${posts}" class="display-post">
+                <h2><a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}"></a></h2>
+                <p class="cute-text" th:text="${post.createdAt}"></p>
+                <p>
+                    <span th:each="category : ${post.categories}">
+                        <a th:href="@{/category/{category}(category=${category.category})}" class="category" th:text="${category.category} "></a>
+                    </span>
+                </p>
+                <hr/>
+            </div>
         </div>
     </div>
     <div th:replace="partials/aboutme :: aboutme"></div>
