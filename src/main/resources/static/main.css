@@ -92,13 +92,36 @@ p {
 .text-center {
     text-align: center;
 }
-.mainView {
+.main-view {
     width: 70%;
+}
+.view-one-post {
+    padding: 2rem;
+    margin: 1rem;
+}
+.view-one-post img {
+    width: 250px;
 }
 .display-post {
     padding: .5rem 1.5rem;
     margin: 0 1rem;
     width: 40%;
+    text-align: center;
+}
+.post-img {
+    width: 15rem;
+    height: 15rem;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+}
+.post-img img {
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translateY(-50%) translateX(-50%);
 }
 .cute-text {
     font-size: 1rem;

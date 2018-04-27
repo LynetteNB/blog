@@ -13,7 +13,7 @@ public class Category {
     @Column(nullable=false)
     private String category;
 
-    @ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "categories")
     private List<Post> posts;
 
     public Category() {

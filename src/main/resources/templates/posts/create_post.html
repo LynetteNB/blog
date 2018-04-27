@@ -5,11 +5,13 @@
     <div th:replace="partials/navbar :: navbar"></div>
     <div class="container">
         <h1 class="text-center">Create a New Post</h1>
-        <form th:action="@{/posts/create}" method="post" th:object="${post}">
+        <form th:action="@{/posts/create}" method="post" th:object="${post}" enctype="multipart/form-data">
             <div class="validation-error-background">
                 <p class="validation-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}" />
             </div>
             <input class="input input-title" type="text" th:field="*{title}" placeholder="Title"/>
+            <label for="file">Upload an image for your post!</label>
+            <input id="file" name="file" type="file" />
             <div class="validation-error-background">
                 <p class="validation-error" th:if="${#fields.hasErrors('body')}" th:errors="*{body}" />
             </div>

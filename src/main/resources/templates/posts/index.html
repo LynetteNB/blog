@@ -4,11 +4,14 @@
 <body>
 <div th:replace="partials/navbar :: navbar"></div>
 <div class="container flex-container">
-    <div class="mainView">
+    <div class="main-view">
         <h1>Posts</h1>
         <div class="post-container">
             <div th:each="post : ${posts}" class="display-post">
                 <h2><a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}"></a></h2>
+                <div class="post-img" th:if="${post.imgPath}">
+                    <img th:src="${post.imgPath}" alt=""/>
+                </div>
                 <p class="cute-text" th:text="${post.createdAt}"></p>
                 <p>
                     <span th:each="category : ${post.categories}">

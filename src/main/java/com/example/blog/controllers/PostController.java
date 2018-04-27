@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.Collections;
@@ -71,7 +72,7 @@ public class PostController {
     }
 
     @PostMapping("/posts/create")
-    public String createPost(@Valid Post post, Errors errors, Model model, @RequestParam String categoriesString){
+    public String createPost(@Valid Post post, Errors errors, Model model, @RequestParam String categoriesString, @RequestParam(name = "file") MultipartFile uploadedFile){
         if (errors.hasErrors()) {
             model.addAttribute("errors", errors);
             model.addAttribute("post", post);
@@ -82,6 +83,9 @@ public class PostController {
         post.setCreatedAt(postService.today());
         if(!categoriesString.trim().equals("")){
             post.setCategories(categoriesService.makeCategoryList(categoriesString));
+        }
+        if(uploadedFile != null) {
+            post.setImgPath(postService.saveFile(uploadedFile, model));
         }
         Post newPost = postService.save(post);
         return "redirect:/posts/" + newPost.getId();
@@ -99,7 +103,7 @@ public class PostController {
     }
 
     @PostMapping("/posts/edit")
-    public String editPost(@Valid Post post, Errors errors, Model model, @RequestParam String categoriesString){
+    public String editPost(@Valid Post post, Errors errors, Model model, @RequestParam String categoriesString, @RequestParam(name = "file") MultipartFile uploadedFile){
         if (errors.hasErrors()) {
             model.addAttribute("errors", errors);
             model.addAttribute("post", post);
@@ -107,6 +111,9 @@ public class PostController {
             return "posts/edit_post";
         }
         post.setCategories(categoriesService.makeCategoryList(categoriesString));
+        if(uploadedFile != null) {
+            post.setImgPath(postService.saveFile(uploadedFile, model));
+        }
         postService.save(post);
         return "redirect:/posts/" + post.getId();
     }

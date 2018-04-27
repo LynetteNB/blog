@@ -5,11 +5,13 @@
 <div th:replace="partials/navbar :: navbar"></div>
 <div class="container">
     <h1 class="text-center">Edit Your Post</h1>
-    <form th:action="@{/posts/edit}" method="post" th:object="${post}">
+    <form th:action="@{/posts/edit}" method="post" th:object="${post}" enctype="multipart/form-data">
         <div class="validation-error-background">
             <p class="validation-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}" />
         </div>
         <input class="input input-title" type="text" th:field="*{title}" th:value="${title}" placeholder="Title"/>
+        <label class="text-center" for="editFile">Upload an different image for your post?</label>
+        <input class="text-center input input-button" id="editFile" name="file" type="file"/>
         <div class="validation-error-background">
             <p class="validation-error" th:if="${#fields.hasErrors('body')}" th:errors="*{body}" />
         </div>
