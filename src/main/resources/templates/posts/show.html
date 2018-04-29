@@ -27,9 +27,16 @@
             <h2>Comments</h2>
             <div class="comments">
                 <div th:each="comment : ${comments}">
-                    <p th:text="${comment.name}"></p>
-                    <p class="comment" th:text="${comment.commentBody} "></p>
-                    <p th:text="${comment.createdAt}" class="cute-text"></p>
+                    <div th:if="${!comment.isDisabled()}">
+                        <p th:text="${comment.name}"></p>
+                        <p class="comment" th:text="${comment.commentBody} "></p>
+                        <p th:text="${comment.createdAt}" class="cute-text"></p>
+                        <div sec:authorize="hasRole('ROLE_READER')">
+                            <form th:action="@{/comment/{id}/disable(id=${comment.id})}" th:method="POST">
+                                <button>Disable</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!--Post a new Comment for Blog-->

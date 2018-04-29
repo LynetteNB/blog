@@ -1,6 +1,7 @@
 package com.example.blog.controllers;
 
 import com.example.blog.models.Comment;
+import com.example.blog.models.Post;
 import com.example.blog.repositories.CommentRepository;
 import com.example.blog.repositories.PostRepository;
 import com.example.blog.services.CommentService;
@@ -25,12 +26,13 @@ public class CommentController {
         this.commentService = commentService;
         this.postRepo = postRepo;
     }
-    @PostMapping("/posts/{postId}/comment/{commentId}/disable")
-    public String disableComment(@PathVariable Long postId, @PathVariable Long commentId) {
+    @PostMapping("/comment/{commentId}/disable")
+    public String disableComment(@PathVariable Long commentId) {
         Comment comment = commentRepo.findOne(commentId);
         comment.disable();
         commentRepo.save(comment);
-        return "redirect:/post/" + postId;
+        Post post = comment.getPost();
+        return "redirect:/posts/" + post.getId();
     }
 
     @PostMapping("/posts/comment")

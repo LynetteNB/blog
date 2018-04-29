@@ -51,5 +51,4 @@ public class UserRole {
     public void setRole(String role) {
         this.role = role;
     }
-    // Getters and setters...
 }

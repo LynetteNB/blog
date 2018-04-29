@@ -9,6 +9,7 @@ import com.example.blog.repositories.UserRepository;
 import com.example.blog.services.CategoriesService;
 import com.example.blog.services.CommentService;
 import com.example.blog.services.PostService;
+import com.example.blog.services.UserDetailsLoader;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -26,15 +27,13 @@ public class PostController {
     private final PostService postService;
     private final CategoriesService categoriesService;
     private final CommentRepository commentRepo;
-    private final CommentService commentService;
-    private final PostRepository postRepo;
+    private final UserDetailsLoader udlService;
 
-    public PostController(PostService postService, CategoriesService categoriesService, CommentRepository commentRepo, CommentService commentService, PostRepository postRepo) {
+    public PostController(PostService postService, CategoriesService categoriesService, CommentRepository commentRepo, UserDetailsLoader udlService) {
         this.postService = postService;
         this.categoriesService = categoriesService;
         this.commentRepo = commentRepo;
-        this.commentService = commentService;
-        this.postRepo = postRepo;
+        this.udlService = udlService;
     }
 
     @GetMapping("/")
@@ -61,6 +60,7 @@ public class PostController {
         model.addAttribute("post", post);
         model.addAttribute("comments", comments);
         model.addAttribute("comment", comment);
+        model.addAttribute("userWithRoles", udlService.loadUserByUsername(post.getUser().getUsername()));
         return "posts/show";
     }
 

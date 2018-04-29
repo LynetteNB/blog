@@ -2,7 +2,7 @@ package com.example.blog.services;
 
 import com.example.blog.models.User;
 import com.example.blog.models.UserWithRoles;
-import com.example.blog.repositories.RolesRepository;
+import com.example.blog.repositories.Roles;
 import com.example.blog.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,17 +10,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class UserDetailsLoader implements UserDetailsService {
     private final UserRepository userRepo;
-    private final RolesRepository rolesRepo;
+    private final Roles roles;
 
-    public UserDetailsLoader(UserRepository userRepo, RolesRepository rolesRepo) {
+    public UserDetailsLoader(UserRepository userRepo, Roles roles) {
         this.userRepo = userRepo;
-        this.rolesRepo = rolesRepo;
+        this.roles = roles;
     }
 
     @Override
@@ -30,8 +27,10 @@ public class UserDetailsLoader implements UserDetailsService {
             throw new UsernameNotFoundException("No user found for " + username);
         }
 
-        return new UserWithRoles(user, rolesRepo.ofUserWith(username));
+        return new UserWithRoles(user, roles.ofUserWith(username));
     }
+
+
 
     public Errors checkRegistration(User user, Errors errors) {
         if (!user.getPassword().matches(".{6,}")) {

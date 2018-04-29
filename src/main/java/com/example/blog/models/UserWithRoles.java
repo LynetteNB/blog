@@ -8,20 +8,23 @@ import java.util.Collection;
 import java.util.List;
 
 public class UserWithRoles extends User implements UserDetails {
-    private List<String> userRoles;
+    private List<String> roles;
 
     public UserWithRoles(User user) {
         super(user);  // Call the copy constructor defined in User
     }
-    public UserWithRoles(User user, List<String> userRoles) {
+    public UserWithRoles(User user, List<String> roles) {
         super(user);
-        this.userRoles = userRoles;
+        this.roles = roles;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        String roles = "AUTHOR, READER"; // Since we're not using the authorization part of the component
-        return AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
+        String rolesString = "";
+        for(String role : roles) {
+            rolesString += "ROLE_" + role + ",";
+        }
+        return AuthorityUtils.commaSeparatedStringToAuthorityList(rolesString);
     }
 
     @Override
@@ -44,11 +47,11 @@ public class UserWithRoles extends User implements UserDetails {
         return true;
     }
 
-    public List<String> getUserRoles() {
-        return userRoles;
-    }
-
-    public void setUserRoles(List<String> userRoles) {
-        this.userRoles = userRoles;
-    }
+//    public List<String> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(List<String> roles) {
+//        this.roles = roles;
+//    }
 }
