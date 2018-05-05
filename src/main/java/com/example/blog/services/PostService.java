@@ -18,8 +18,8 @@ import java.util.List;
 public class PostService {
     private final PostRepository postRepo;
 
-    @Value("${file-upload-path}")
-    private String uploadPath;
+//    @Value("${file-upload-path}")
+//    private String uploadPath;
 
     public PostService(PostRepository postRepo) {
         this.postRepo = postRepo;
@@ -44,23 +44,23 @@ public class PostService {
         return months[today.getMonthValue()-1] + " " + today.getDayOfMonth() + ", " + today.getYear();
     }
 
-    public String saveFile(MultipartFile uploadedFile, Model model) {
-        String filename = uploadedFile.getOriginalFilename();
-        if(filename.trim().equals("")) {
-            return null;
-        }
-        String htmlfilepath = Paths.get("/img/", filename).toString();
-        String filepath = Paths.get(uploadPath, filename).toString();
-        File destinationFile = new File(filepath);
-        try {
-            uploadedFile.transferTo(destinationFile);
-            model.addAttribute("message", "File successfully uploaded!");
-        } catch (IOException e) {
-            e.printStackTrace();
-            model.addAttribute("message", "Oops! Something went wrong! " + e);
-        }
-        return htmlfilepath;
-    }
+//    public String saveFile(MultipartFile uploadedFile, Model model) {
+//        String filename = uploadedFile.getOriginalFilename();
+//        if(filename.trim().equals("")) {
+//            return null;
+//        }
+//        String htmlfilepath = Paths.get("/img/", filename).toString();
+//        String filepath = Paths.get(uploadPath, filename).toString();
+//        File destinationFile = new File(filepath);
+//        try {
+//            uploadedFile.transferTo(destinationFile);
+//            model.addAttribute("message", "File successfully uploaded!");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            model.addAttribute("message", "Oops! Something went wrong! " + e);
+//        }
+//        return htmlfilepath;
+//    }
 
 
 }
