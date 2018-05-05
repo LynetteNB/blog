@@ -26,9 +26,9 @@ public class Post {
     @Column(nullable=false)
     private String createdAt;
 
-    @Column(length = 100)
-    @Size(max=100, message = "File name cannot be more than 100 characters.")
-    private String imgPath;
+//    @Column(length = 100)
+//    @Size(max=100, message = "File name cannot be more than 100 characters.")
+//    private String imgPath;
 
     @ManyToOne (optional = false)
     @JoinColumn (name = "user_id")
@@ -53,7 +53,7 @@ public class Post {
         this.createdAt = createdAt;
         this.categories = categories;
         this.comments = comments;
-        this.imgPath = imgPath;
+//        this.imgPath = imgPath;
     }
 
     public Post(String title, String body, User user, String createdAt, List<Category> categories, List<Comment> comments, String imgPath) {
@@ -63,7 +63,7 @@ public class Post {
         this.createdAt = createdAt;
         this.categories = categories;
         this.comments = comments;
-        this.imgPath = imgPath;
+//        this.imgPath = imgPath;
     }
     public Post(String title, String body, User user, String createdAt) {
         this.title = title;
@@ -128,11 +128,11 @@ public class Post {
         this.comments = comments;
     }
 
-    public String getImgPath() {
-        return imgPath;
-    }
-
-    public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
-    }
+//    public String getImgPath() {
+//        return imgPath;
+//    }
+//
+//    public void setImgPath(String imgPath) {
+//        this.imgPath = imgPath;
+//    }
 }

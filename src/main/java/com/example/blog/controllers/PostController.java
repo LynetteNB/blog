@@ -84,9 +84,9 @@ public class PostController {
         if(!categoriesString.trim().equals("")){
             post.setCategories(categoriesService.makeCategoryList(categoriesString));
         }
-        if(uploadedFile != null) {
-            post.setImgPath(postService.saveFile(uploadedFile, model));
-        }
+//        if(uploadedFile != null) {
+//            post.setImgPath(postService.saveFile(uploadedFile, model));
+//        }
         Post newPost = postService.save(post);
         return "redirect:/posts/" + newPost.getId();
     }
@@ -111,9 +111,9 @@ public class PostController {
             return "posts/edit_post";
         }
         post.setCategories(categoriesService.makeCategoryList(categoriesString));
-        if(uploadedFile != null) {
-            post.setImgPath(postService.saveFile(uploadedFile, model));
-        }
+//        if(uploadedFile != null) {
+//            post.setImgPath(postService.saveFile(uploadedFile, model));
+//        }
         postService.save(post);
         return "redirect:/posts/" + post.getId();
     }
